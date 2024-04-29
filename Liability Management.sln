@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liability Management", "Liability Management\Liability Management.csproj", "{008B0728-3851-4B89-AF5D-D65F72810133}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{008B0728-3851-4B89-AF5D-D65F72810133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{008B0728-3851-4B89-AF5D-D65F72810133}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{008B0728-3851-4B89-AF5D-D65F72810133}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{008B0728-3851-4B89-AF5D-D65F72810133}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {319A53E7-EA4C-4D38-A8E5-09E87B78ECC0}
+	EndGlobalSection
+EndGlobal
