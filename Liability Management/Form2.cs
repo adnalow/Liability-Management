@@ -128,11 +128,11 @@ namespace Liability_Management
                     // Rewrite the updated data back to the CSV file
                     File.WriteAllLines(csvFilePath, lines);
 
-                    MessageBox.Show($"Removed {removedCount} liabilities for assignee: {id}");
+                    MessageBox.Show($"Removed {removedCount} liabilities having the unique id: {id}");
                 }
                 else
                 {
-                    MessageBox.Show($"No liabilities found for assignee: {id}");
+                    MessageBox.Show($"No liabilities having the unique id: {id}");
                 }
             }
             else

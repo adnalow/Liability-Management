@@ -42,7 +42,6 @@
             this.username.Name = "username";
             this.username.Size = new System.Drawing.Size(119, 20);
             this.username.TabIndex = 1;
-            this.username.TextChanged += new System.EventHandler(this.username_TextChanged);
             // 
             // password
             // 
@@ -60,7 +59,6 @@
             this.label3.Size = new System.Drawing.Size(48, 20);
             this.label3.TabIndex = 5;
             this.label3.Text = "Login";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
@@ -70,7 +68,6 @@
             this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "username";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
             // 
@@ -80,7 +77,6 @@
             this.label1.Size = new System.Drawing.Size(52, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "password";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // loginBtn
             // 
