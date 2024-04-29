@@ -24,7 +24,49 @@ namespace Liability_Management
         private void Form2_Load(object sender, EventArgs e)
         {
             loggedIn.Text = loggedUsername;
+
+            LoadLiabilitiesFromCsv();
         }
+
+        private void LoadLiabilitiesFromCsv()
+        {
+            string csvFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "liabilities.csv");
+
+            // Check if the file exists
+            if (File.Exists(csvFilePath))
+            {
+                using (var reader = new StreamReader(csvFilePath))
+                using (var csv = new CsvReader(reader, new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.CurrentCulture)))
+                {
+
+                    // Read the records from CSV file
+                    var records = csv.GetRecords<Liability>();
+
+                    // Clear existing rows and columns from DataGridView
+                    dataGridView1.Rows.Clear();
+                    dataGridView1.Columns.Clear();
+
+                    // Define DataGridView columns
+                    dataGridView1.Columns.Add("AssigneeName", "Assignee Name");
+                    dataGridView1.Columns.Add("Name", "Liability Name");
+                    dataGridView1.Columns.Add("Description", "Description");
+                    dataGridView1.Columns.Add("Price", "Price");
+                    dataGridView1.Columns.Add("DueDate", "Due Date");
+
+                    // Populate DataGridView with liability data
+                    foreach (var liability in records)
+                    {
+                        // Add a new row to DataGridView
+                        dataGridView1.Rows.Add(liability.AssigneeName, liability.Name, liability.Description, liability.Price, liability.DueDate);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("CSV file not found.");
+            }
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -52,12 +94,14 @@ namespace Liability_Management
 
             MessageBox.Show("Liability submitted successfully.");
 
-            
+            LoadLiabilitiesFromCsv();
+
+
         }
 
         private void WriteToCsv(Liability liability)
         {
-            string csvFilePath = "liabilities.csv";
+            string csvFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "liabilities.csv");
 
             using (StreamWriter writer = new StreamWriter(csvFilePath, true))
             using (CsvWriter csvWriter = new CsvWriter(writer, new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.CurrentCulture)))
@@ -78,5 +122,9 @@ namespace Liability_Management
             public string DueDate { get; set; }
         }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

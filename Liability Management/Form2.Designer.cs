@@ -33,13 +33,15 @@
             this.price = new System.Windows.Forms.TextBox();
             this.description = new System.Windows.Forms.TextBox();
             this.name = new System.Windows.Forms.TextBox();
-            this.asignee = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.dueDate = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.loggedIn = new System.Windows.Forms.Label();
+            this.asignee = new System.Windows.Forms.ComboBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -86,17 +88,6 @@
             this.name.Name = "name";
             this.name.Size = new System.Drawing.Size(281, 33);
             this.name.TabIndex = 8;
-            // 
-            // asignee
-            // 
-            this.asignee.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.asignee.Location = new System.Drawing.Point(300, 75);
-            this.asignee.Multiline = true;
-            this.asignee.Name = "asignee";
-            this.asignee.Size = new System.Drawing.Size(281, 36);
-            this.asignee.TabIndex = 7;
             // 
             // label2
             // 
@@ -156,12 +147,36 @@
             this.loggedIn.TabIndex = 18;
             this.loggedIn.Text = "Username";
             // 
+            // asignee
+            // 
+            this.asignee.FormattingEnabled = true;
+            this.asignee.Items.AddRange(new object[] {
+            "general",
+            "adrian",
+            "kim",
+            "gian"});
+            this.asignee.Location = new System.Drawing.Point(311, 76);
+            this.asignee.Name = "asignee";
+            this.asignee.Size = new System.Drawing.Size(270, 21);
+            this.asignee.TabIndex = 19;
+            this.asignee.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(649, 76);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(486, 267);
+            this.dataGridView1.TabIndex = 20;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1161, 644);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.asignee);
             this.Controls.Add(this.loggedIn);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.dueDate);
@@ -173,10 +188,10 @@
             this.Controls.Add(this.price);
             this.Controls.Add(this.description);
             this.Controls.Add(this.name);
-            this.Controls.Add(this.asignee);
             this.Name = "Form2";
             this.Text = "Form2";
             this.Load += new System.EventHandler(this.Form2_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,12 +204,13 @@
         private System.Windows.Forms.TextBox price;
         private System.Windows.Forms.TextBox description;
         private System.Windows.Forms.TextBox name;
-        private System.Windows.Forms.TextBox asignee;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox dueDate;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label loggedIn;
+        private System.Windows.Forms.ComboBox asignee;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
