@@ -6,9 +6,11 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Liability_Management
 {
@@ -47,6 +49,7 @@ namespace Liability_Management
                     dataGridView1.Columns.Clear();
 
                     // Define DataGridView columns
+                    dataGridView1.Columns.Add("Id", "UniqueID");
                     dataGridView1.Columns.Add("AssigneeName", "Assignee Name");
                     dataGridView1.Columns.Add("Name", "Liability Name");
                     dataGridView1.Columns.Add("Description", "Description");
@@ -57,7 +60,7 @@ namespace Liability_Management
                     foreach (var liability in records)
                     {
                         // Add a new row to DataGridView
-                        dataGridView1.Rows.Add(liability.AssigneeName, liability.Name, liability.Description, liability.Price, liability.DueDate);
+                        dataGridView1.Rows.Add(liability.Id,liability.AssigneeName, liability.Name, liability.Description, liability.Price, liability.DueDate);
                     }
                 }
             }
@@ -66,6 +69,78 @@ namespace Liability_Management
                 MessageBox.Show("CSV file not found.");
             }
         }
+
+        private void LoadLiabilitiesByAssigneeFromCsv(string assigneeName)
+        {
+            string csvFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "liabilities.csv");
+
+            // Check if the file exists
+            if (File.Exists(csvFilePath))
+            {
+                using (var reader = new StreamReader(csvFilePath))
+                using (var csv = new CsvReader(reader, new CsvHelper.Configuration.CsvConfiguration(System.Globalization.CultureInfo.CurrentCulture)))
+                {
+                    // Read the records from CSV file
+                    var records = csv.GetRecords<Liability>().Where(l => l.AssigneeName == assigneeName).ToList();
+
+                    // Clear existing rows and columns from DataGridView
+                    dataGridView2.Rows.Clear();
+                    dataGridView2.Columns.Clear();
+
+                    // Define DataGridView columns
+                    dataGridView2.Columns.Add("Id", "UniqueID");
+                    dataGridView2.Columns.Add("AssigneeName", "Assignee Name");
+                    dataGridView2.Columns.Add("Name", "Liability Name");
+                    dataGridView2.Columns.Add("Description", "Description");
+                    dataGridView2.Columns.Add("Price", "Price");
+                    dataGridView2.Columns.Add("DueDate", "Due Date");
+
+                    // Populate DataGridView with filtered liability data
+                    foreach (var liability in records)
+                    {
+                        // Add a new row to DataGridView
+                        dataGridView2.Rows.Add(liability.Id, liability.AssigneeName, liability.Name, liability.Description, liability.Price, liability.DueDate);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("CSV file not found.");
+            }
+        }
+
+
+        private void RemoveLiabilityByAssigneeName(string id)
+        {
+            string csvFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "liabilities.csv");
+
+            // Check if the file exists
+            if (File.Exists(csvFilePath))
+            {
+                // Read all lines from the CSV file
+                List<string> lines = File.ReadAllLines(csvFilePath).ToList();
+
+                // Remove liabilities with the specified assignee name
+                int removedCount = lines.RemoveAll(line => line.Split(',')[0] == id); // Assuming assigneeName is in the second column (index 1)
+
+                if (removedCount > 0)
+                {
+                    // Rewrite the updated data back to the CSV file
+                    File.WriteAllLines(csvFilePath, lines);
+
+                    MessageBox.Show($"Removed {removedCount} liabilities for assignee: {id}");
+                }
+                else
+                {
+                    MessageBox.Show($"No liabilities found for assignee: {id}");
+                }
+            }
+            else
+            {
+                MessageBox.Show("CSV file not found.");
+            }
+        }
+
 
 
         private void button1_Click(object sender, EventArgs e)
@@ -124,6 +199,20 @@ namespace Liability_Management
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void btn2_Click(object sender, EventArgs e)
+        {
+            string idToRemove = removeLiab.Text;
+            RemoveLiabilityByAssigneeName(idToRemove);
+            LoadLiabilitiesFromCsv();
+        }
+
+        private void viewSpecified_Click(object sender, EventArgs e)
+        {
+            string viewSpecific = specificLiab.Text;
+            LoadLiabilitiesByAssigneeFromCsv(viewSpecific);
 
         }
     }
